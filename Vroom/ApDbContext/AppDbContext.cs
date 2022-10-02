@@ -13,5 +13,6 @@ namespace Vroom.ApDbContext
         }
         public DbSet<Make> Makes { get; set; }
         public DbSet<Vroom.Model.Model> Models { get; set; }
+        public DbSet<Features> Features { get; set; }
     }
 }
