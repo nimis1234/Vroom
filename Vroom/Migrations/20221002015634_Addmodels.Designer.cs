@@ -9,8 +9,8 @@ using Vroom.ApDbContext;
 namespace Vroom.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221002011817_AddModelsToDatabase")]
-    partial class AddModelsToDatabase
+    [Migration("20221002015634_Addmodels")]
+    partial class Addmodels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,6 +19,28 @@ namespace Vroom.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Vroom.Model.Features", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("MakeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MakeId");
+
+                    b.ToTable("Features");
+                });
 
             modelBuilder.Entity("Vroom.Model.Make", b =>
                 {
@@ -53,6 +75,17 @@ namespace Vroom.Migrations
                     b.HasIndex("MakeId");
 
                     b.ToTable("Models");
+                });
+
+            modelBuilder.Entity("Vroom.Model.Features", b =>
+                {
+                    b.HasOne("Vroom.Model.Make", "Make")
+                        .WithMany()
+                        .HasForeignKey("MakeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Make");
                 });
 
             modelBuilder.Entity("Vroom.Model.Model", b =>

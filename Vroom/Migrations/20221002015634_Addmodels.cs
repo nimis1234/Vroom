@@ -2,7 +2,7 @@
 
 namespace Vroom.Migrations
 {
-    public partial class AddModelsToDatabase : Migration
+    public partial class Addmodels : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,6 +17,26 @@ namespace Vroom.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Makes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Features",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    MakeId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Features", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Features_Makes_MakeId",
+                        column: x => x.MakeId,
+                        principalTable: "Makes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -40,6 +60,11 @@ namespace Vroom.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Features_MakeId",
+                table: "Features",
+                column: "MakeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Models_MakeId",
                 table: "Models",
                 column: "MakeId");
@@ -47,6 +72,9 @@ namespace Vroom.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Features");
+
             migrationBuilder.DropTable(
                 name: "Models");
 
