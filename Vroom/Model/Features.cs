@@ -10,6 +10,7 @@ namespace Vroom.Model
         [MaxLength(255)]
         public string Name { get; set; }
 
+        //make
         public Make Make { get; set; }
         public int MakeId { get; set; }
 
