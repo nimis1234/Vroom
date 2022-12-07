@@ -4,6 +4,7 @@ namespace Vroom.Model
 {
     public class Features
     {
+        //changes
         public int Id { get; set; }
 
         [Required] // inorder to not allow null
