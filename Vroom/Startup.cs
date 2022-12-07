@@ -14,6 +14,7 @@ namespace Vroom
         {
             Configuration = configuration;
         }
+        // config
 
         public IConfiguration Configuration { get; }
 
