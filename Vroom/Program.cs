@@ -11,6 +11,7 @@ namespace Vroom
         }
         // chnages
 
+        // create host builder
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
